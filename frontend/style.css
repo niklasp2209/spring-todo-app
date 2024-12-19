@@ -1,0 +1,24 @@
+body {
+    font-family: Arial, sans-serif;
+    background-color: #f4f4f9;
+    margin: 20px;
+    padding: 0;
+    color: #333;
+}
+
+h1 {
+    text-align: center;
+}
+
+ul#todo-list {
+    list-style-type: none;
+    padding: 0;
+}
+
+ul#todo-list li {
+    padding: 10px;
+    margin: 5px 0;
+    background: #ffffff;
+    border: 1px solid #ddd;
+    border-radius: 4px;
+}
