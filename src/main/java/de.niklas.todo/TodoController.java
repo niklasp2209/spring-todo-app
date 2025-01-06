@@ -7,23 +7,22 @@ import java.util.List;
 
 @CrossOrigin(origins = "http://localhost:63342")
 @RestController
-@RequestMapping("/todos")
 public class TodoController {
 
     private List<Todo> todoList = new ArrayList<>();
 
-    @GetMapping
+    @GetMapping("/todos")
     public List<Todo> getAllTodos() {
         return todoList;
     }
 
-    @PostMapping
+    @PostMapping("/todos")
     public Todo addTodo(@RequestBody Todo todo) {
         todoList.add(todo);
         return todo;
     }
 
-    @DeleteMapping("/{index}")
+    @DeleteMapping("/todos/{index}")
     public String deleteTodo(@PathVariable int index) {
         if (index >= 0 && index < todoList.size()) {
             todoList.remove(index);

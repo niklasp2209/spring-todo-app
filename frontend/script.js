@@ -26,21 +26,20 @@ function displayTodos(todosToDisplay) {
         todosToDisplay.forEach((todo, index) => {
             const li = document.createElement("li");
             li.textContent = `${todo.description} - Due: ${todo.dueDate}`;
-            li.onclick = () => deleteTodo(index);  // Fix: deleteTodo-Aufruf
+            li.onclick = () => deleteTodo(index);
             todoListElement.appendChild(li);
         });
     }
 }
 
-// Funktion zum Löschen eines TODOs
 async function deleteTodo(index) {
     try {
-        const response = await fetch(`${API_URL}/${index}`, {
+        const response = await fetch(`${API_URL}/${index}`, {  // Hier die URL auf /todos/{index} anpassen
             method: "DELETE"
         });
 
         if (response.ok) {
-            fetchTodos(); // TODO-Liste nach Löschen aktualisieren
+            fetchTodos();  // TODO-Liste nach dem Löschen aktualisieren
         } else {
             console.error("Failed to delete TODO:", response.statusText);
         }
