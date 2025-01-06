@@ -34,7 +34,7 @@ function displayTodos(todosToDisplay) {
 
 async function deleteTodo(index) {
     try {
-        const response = await fetch(`${API_URL}/${index}`, {  // Hier die URL auf /todos/{index} anpassen
+        const response = await fetch(`${API_URL}/${index}`, {
             method: "DELETE"
         });
 
