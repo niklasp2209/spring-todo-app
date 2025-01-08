@@ -3,15 +3,6 @@
   <component name="CompilerConfiguration">
     <annotationProcessing>
       <profile default="true" name="Default" enabled="true" />
-      <profile name="Annotation profile for todo-backend" enabled="true">
-        <sourceOutputDir name="core/target/generated-sources/annotations" />
-        <sourceTestOutputDir name="core/target/generated-test-sources/test-annotations" />
-        <outputRelativeToContentRoot value="true" />
-        <processorPath useClasspath="false">
-          <entry name="$MAVEN_REPOSITORY$/org/projectlombok/lombok/unknown/lombok-unknown.jar" />
-        </processorPath>
-        <module name="todo-backend" />
-      </profile>
       <profile name="Annotation profile for todo-app" enabled="true">
         <sourceOutputDir name="target/generated-sources/annotations" />
         <sourceTestOutputDir name="target/generated-test-sources/test-annotations" />
@@ -26,7 +17,7 @@
   <component name="JavacSettings">
     <option name="ADDITIONAL_OPTIONS_OVERRIDE">
       <module name="core" options="-parameters" />
-      <module name="todo-backend" options="-parameters" />
+      <module name="todo-backend" options="" />
     </option>
   </component>
 </project>
