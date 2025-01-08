@@ -1,5 +1,4 @@
-package de.niklas.todo.model;
-
+import de.niklas.todo.model.Todo;
 import org.junit.jupiter.api.Test;
 
 import java.time.LocalDate;

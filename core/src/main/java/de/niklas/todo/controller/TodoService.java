@@ -1,6 +1,7 @@
 package de.niklas.todo.controller;
 
 import de.niklas.todo.model.Todo;
+import lombok.NonNull;
 import org.springframework.stereotype.Service;
 
 import java.util.ArrayList;
@@ -15,7 +16,7 @@ import java.util.Optional;
 @Service
 public class TodoService {
 
-    private final List<Todo> todoList = new ArrayList<>();
+    @NonNull private final List<Todo> todoList = new ArrayList<>();
     private long currentId = 1;
 
     /**
@@ -33,7 +34,7 @@ public class TodoService {
      * @param todo the Todo item to be added
      * @return the created Todo item with the assigned ID
      */
-    public Todo addTodo(Todo todo) {
+    public Todo addTodo(@NonNull Todo todo) {
         todo.setId(currentId++);
         todoList.add(todo);
         return todo;
@@ -45,7 +46,7 @@ public class TodoService {
      * @param id the ID of the Todo item to be deleted
      * @return true if the Todo item was found and deleted, false if the item was not found
      */
-    public boolean deleteTodoById(Long id) {
+    public boolean deleteTodoById(@NonNull Long id) {
         Optional<Todo> todoOptional = todoList.stream()
                 .filter(todo -> todo.getId().equals(id))
                 .findFirst();

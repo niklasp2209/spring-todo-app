@@ -16,9 +16,9 @@ import java.time.LocalDate;
 @Setter
 public class Todo {
 
-    private Long id;
-    private String title;
-    private String description;
+    @NonNull private Long id;
+    @NonNull private String title;
+    @NonNull private String description;
 
     @JsonFormat(pattern = "yyyy-MM-dd")
     private LocalDate dueDate;

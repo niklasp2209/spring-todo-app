@@ -1,6 +1,7 @@
 package de.niklas.todo.controller;
 
 import de.niklas.todo.model.Todo;
+import lombok.NonNull;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
@@ -18,10 +19,10 @@ import java.util.List;
 @RequestMapping("/todos")
 public class TodoController {
 
-    private final TodoService todoService;
+    @NonNull private final TodoService todoService;
 
     @Autowired
-    public TodoController(TodoService todoService) {
+    public TodoController(@NonNull TodoService todoService) {
         this.todoService = todoService;
     }
 

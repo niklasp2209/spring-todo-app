@@ -1,4 +1,5 @@
 import de.niklas.todo.TodoApplication;
+import lombok.NonNull;
 import org.junit.jupiter.api.Test;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.test.context.SpringBootTest;
@@ -12,7 +13,7 @@ import org.springframework.test.web.reactive.server.WebTestClient;
 public class WebConfigTest {
 
     @Autowired
-    private WebTestClient webTestClient;
+    @NonNull private WebTestClient webTestClient;
 
     /**
      * This test case verifies that the CORS configuration correctly allows requests from the specified origin.

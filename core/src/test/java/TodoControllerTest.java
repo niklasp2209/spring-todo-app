@@ -1,5 +1,6 @@
 import de.niklas.todo.TodoApplication;
 import de.niklas.todo.model.Todo;
+import lombok.NonNull;
 import org.junit.jupiter.api.Test;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.test.context.SpringBootTest;
@@ -18,7 +19,7 @@ import static org.junit.jupiter.api.Assertions.assertNotNull;
 public class TodoControllerTest {
 
     @Autowired
-    private WebTestClient webTestClient;
+    @NonNull private WebTestClient webTestClient;
 
     /**
      * This test case validates the functionality of adding a new Todo.
