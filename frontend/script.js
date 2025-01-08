@@ -1,20 +1,30 @@
 const API_URL = "http://localhost:8080/todos";
 let todos = [];
 
-async function fetchTodos() {
+/**
+ * Fetches the list of todos from the API and displays them.
+ * Handles errors if fetching fails.
+ */
+async function loadTodos() {
     try {
         const response = await fetch(API_URL);
         if (!response.ok) {
-            throw new Error("Network response was not ok");
+            throw new Error("Failed to fetch todos: " + response.statusText);
         }
         todos = await response.json();
-        displayTodos(todos);
+        renderTodos(todos);
     } catch (error) {
         console.error("Error fetching TODOs:", error);
+        showError("Could not load todos. Please try again later.");
     }
 }
 
-function displayTodos(todosToDisplay) {
+/**
+ * Renders the list of todos to the page.
+ * If no todos are available, a message will be displayed.
+ * @param {Array} todosToDisplay - The list of todos to display
+ */
+function renderTodos(todosToDisplay) {
     const todoListElement = document.getElementById("todo-list");
     todoListElement.innerHTML = "";
 
@@ -23,54 +33,70 @@ function displayTodos(todosToDisplay) {
         li.textContent = "No TODOs available.";
         todoListElement.appendChild(li);
     } else {
-        todosToDisplay.forEach((todo, index) => {
+        todosToDisplay.forEach((todo) => {
             const li = document.createElement("li");
             li.textContent = `${todo.description} - Due: ${todo.dueDate}`;
-            li.onclick = () => deleteTodo(index);
+            li.onclick = () => deleteTodo(todo.id);
             todoListElement.appendChild(li);
         });
     }
 }
 
+/**
+ * Deletes a todo item by its ID.
+ * @param {number} id - The ID of the todo to delete
+ */
 async function deleteTodo(index) {
     try {
         const response = await fetch(`${API_URL}/${index}`, {
-            method: "DELETE"
+            method: "DELETE",
         });
 
         if (response.ok) {
-            fetchTodos();  // TODO-Liste nach dem Löschen aktualisieren
+            await loadTodos();
         } else {
             console.error("Failed to delete TODO:", response.statusText);
+            showError("Could not delete the todo. Please try again.");
         }
     } catch (error) {
         console.error("Error deleting TODO:", error);
+        showError("An error occurred while deleting the todo.");
     }
 }
 
+/**
+ * Filters the todos based on a search query.
+ * @param {Event} event - The input event from the search field
+ */
 function filterTodos() {
     const searchQuery = document.getElementById("search-input").value.toLowerCase();
     const filteredTodos = todos.filter(todo =>
-        todo.description.toLowerCase().includes(searchQuery) || todo.dueDate.toLowerCase().includes(searchQuery)
+        todo.description.toLowerCase().includes(searchQuery) ||
+        todo.dueDate.toLowerCase().includes(searchQuery)
     );
-    displayTodos(filteredTodos);
+    renderTodos(filteredTodos);
 }
 
-document.getElementById("search-input").addEventListener("input", filterTodos);
-
+/**
+ * Adds a new todo item to the list.
+ * @param {Event} event - The submit event from the todo form
+ */
 async function addTodo(event) {
     event.preventDefault();
 
-    const description = document.getElementById("description").value;
-    const localDate = document.getElementById("dueDate").value;
+    const description = document.getElementById("description").value.trim();
+    const dueDate = document.getElementById("dueDate").value;
+    const title = document.getElementById("title").value.trim();
 
-    if (!description || !localDate) {
+    if (!description || !dueDate || !title) {
+        showError("Please provide a title, description, and a due date.");
         return;
     }
 
     const newTodo = {
+        title,
         description,
-        dueDate: localDate
+        dueDate,
     };
 
     try {
@@ -83,13 +109,33 @@ async function addTodo(event) {
         });
 
         if (response.ok) {
-            fetchTodos(); // TODO-Liste aktualisieren
+            await loadTodos();
             document.getElementById("todo-form").reset();
+        } else {
+            console.error("Failed to add todo:", response.statusText);
+            showError("Could not add the todo. Please try again.");
         }
     } catch (error) {
         console.error("Error adding todo:", error);
+        showError("An error occurred while adding the todo.");
     }
 }
 
-window.onload = fetchTodos;
+/**
+ * Displays an error message in the error message container.
+ * @param {string} message - The error message to display
+ */
+function showError(message) {
+    const errorElement = document.getElementById("error-message");
+    errorElement.textContent = message;
+    errorElement.style.display = "block";
+
+    setTimeout(() => {
+        errorElement.style.display = "none";
+    }, 5000);
+}
+
+// Event-Listener
+window.onload = loadTodos;
 document.getElementById("todo-form").addEventListener("submit", addTodo);
+document.getElementById("search-input").addEventListener("input", filterTodos);
