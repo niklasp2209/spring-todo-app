@@ -1,0 +1,5 @@
+# Created at 2025-01-08T23:38:38.954
+Boot Manifest-JAR contains absolute paths in classpath 'D:\Desktop\Programmieren\Java\PlayNayz\Intellij\todo-app\core\target\test-classes'
+Hint: <argLine>-Djdk.net.URLClassPath.disableClassPathURLCheck=true</argLine>
+'other' has different root
+
