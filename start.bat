@@ -16,5 +16,3 @@ start java -jar core\target\core-0.0.1-SNAPSHOT.jar > app.log 2>&1
 
 echo Application started successfully. Running processes:
 tasklist /FI "IMAGENAME eq java.exe"
-
-pause
